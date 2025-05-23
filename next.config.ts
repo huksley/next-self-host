@@ -11,8 +11,8 @@ const drizzle = nodeFileTrace([
 ]).then((drizzle) => [
   ...drizzle.fileList,
   "./node_modules/.bin/drizzle-kit",
-  "./node_modules/drizzle-orm",
-  "./node_modules/drizzle-kit",
+  "./node_modules/drizzle-orm/**",
+  "./node_modules/drizzle-kit/**",
 ]);
 
 const nextConfig: Promise<NextConfig> = drizzle.then((drizzle) => ({
