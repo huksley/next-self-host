@@ -7,6 +7,7 @@ import { nodeFileTrace } from "@vercel/nft";
 const drizzle = nodeFileTrace([require.resolve("drizzle-kit")]).then((drizzle) => [
   ...drizzle.fileList,
   "./node_modules/.bin/drizzle-kit",
+  "./node_modules/drizzle-kit/bin.cjs",
 ]);
 
 const nextConfig: Promise<NextConfig> = drizzle.then((drizzle) => ({
