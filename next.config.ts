@@ -6,6 +6,7 @@ import { nodeFileTrace } from "@vercel/nft";
 /** Force include Drizzle Kit so we can apply migrations quickly */
 const drizzle = nodeFileTrace([
   require.resolve("drizzle-kit"),
+  require.resolve("drizzle-orm"),
   path.resolve(path.dirname(require.resolve("drizzle-kit")), "bin.cjs")
 ]).then((drizzle) => [
   ...drizzle.fileList,
