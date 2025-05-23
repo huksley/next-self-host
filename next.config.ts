@@ -1,13 +1,15 @@
 import type { NextConfig } from 'next';
-// import path from 'path';
+import path from 'path';
 
 import { nodeFileTrace } from "@vercel/nft";
 
 /** Force include Drizzle Kit so we can apply migrations quickly */
-const drizzle = nodeFileTrace([require.resolve("drizzle-kit")]).then((drizzle) => [
+const drizzle = nodeFileTrace([
+  require.resolve("drizzle-kit"),
+  path.resolve(path.dirname(require.resolve("drizzle-kit")), "bin.cjs")
+]).then((drizzle) => [
   ...drizzle.fileList,
   "./node_modules/.bin/drizzle-kit",
-  "./node_modules/drizzle-kit/bin.cjs",
 ]);
 
 const nextConfig: Promise<NextConfig> = drizzle.then((drizzle) => ({
