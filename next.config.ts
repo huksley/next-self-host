@@ -1,21 +1,6 @@
 import type { NextConfig } from 'next';
-import path from 'path';
 
-import { nodeFileTrace } from "@vercel/nft";
-
-/** Force include Drizzle Kit so we can apply migrations quickly */
-const drizzle = nodeFileTrace([
-  require.resolve("drizzle-kit"),
-  require.resolve("drizzle-orm"),
-  path.resolve(path.dirname(require.resolve("drizzle-kit")), "bin.cjs")
-]).then((drizzle) => [
-  ...drizzle.fileList,
-  "./node_modules/.bin/drizzle-kit",
-  "./node_modules/drizzle-orm/**",
-  "./node_modules/drizzle-kit/**",
-]);
-
-const nextConfig: Promise<NextConfig> = drizzle.then((drizzle) => ({
+const nextConfig: NextConfig = {
   // Recommended: this will reduce output
   // Docker image size by 80%+
   output: 'standalone',
@@ -46,10 +31,6 @@ const nextConfig: Promise<NextConfig> = drizzle.then((drizzle) => ({
   // Optional: override the default (1 year) `stale-while-revalidate`
   // header time for static pages
   // swrDelta: 3600 // seconds
-
-  outputFileTracingIncludes: {
-    "**": [...drizzle],
-  },
-}));
+});
 
 export default nextConfig;
