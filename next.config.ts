@@ -31,6 +31,6 @@ const nextConfig: NextConfig = {
   // Optional: override the default (1 year) `stale-while-revalidate`
   // header time for static pages
   // swrDelta: 3600 // seconds
-});
+};
 
 export default nextConfig;
